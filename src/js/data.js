@@ -1132,6 +1132,11 @@ var allCountries = [
     ["79"]
   ],
   [
+    "Swaziland",
+    "sz",
+    "268"
+  ],
+  [
     "Sweden (Sverige)",
     "se",
     "46"
