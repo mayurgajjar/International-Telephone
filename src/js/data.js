@@ -33,7 +33,9 @@ var allCountries = [
   [
     "American Samoa",
     "as",
-    "1684"
+    "1",
+    5,
+    ["684"]
   ],
   [
     "Andorra",
@@ -48,12 +50,16 @@ var allCountries = [
   [
     "Anguilla",
     "ai",
-    "1264"
+    "1",
+    6,
+    ["264"]
   ],
   [
     "Antigua and Barbuda",
     "ag",
-    "1268"
+    "1",
+    7,
+    ["268"]
   ],
   [
     "Argentina",
@@ -69,6 +75,11 @@ var allCountries = [
     "Aruba",
     "aw",
     "297"
+  ],
+  [
+    "Ascension Island",
+    "ac",
+    "247"
   ],
   [
     "Australia",
@@ -89,7 +100,9 @@ var allCountries = [
   [
     "Bahamas",
     "bs",
-    "1242"
+    "1",
+    8,
+    ["242"]
   ],
   [
     "Bahrain (‫البحرين‬‎)",
@@ -104,7 +117,9 @@ var allCountries = [
   [
     "Barbados",
     "bb",
-    "1246"
+    "1",
+    9,
+    ["246"]
   ],
   [
     "Belarus (Беларусь)",
@@ -129,7 +144,9 @@ var allCountries = [
   [
     "Bermuda",
     "bm",
-    "1441"
+    "1",
+    10,
+    ["441"]
   ],
   [
     "Bhutan (འབྲུག)",
@@ -164,7 +181,9 @@ var allCountries = [
   [
     "British Virgin Islands",
     "vg",
-    "1284"
+    "1",
+    11,
+    ["284"]
   ],
   [
     "Brunei",
@@ -218,7 +237,9 @@ var allCountries = [
   [
     "Cayman Islands",
     "ky",
-    "1345"
+    "1",
+    12,
+    ["345"]
   ],
   [
     "Central African Republic (République centrafricaine)",
@@ -244,13 +265,15 @@ var allCountries = [
     "Christmas Island",
     "cx",
     "61",
-    2
+    2,
+    ["89164"]
   ],
   [
     "Cocos (Keeling) Islands",
     "cc",
     "61",
-    1
+    1,
+    ["89162"]
   ],
   [
     "Colombia",
@@ -326,7 +349,9 @@ var allCountries = [
   [
     "Dominica",
     "dm",
-    "1767"
+    "1",
+    13,
+    ["767"]
   ],
   [
     "Dominican Republic (República Dominicana)",
@@ -364,6 +389,11 @@ var allCountries = [
     "Estonia (Eesti)",
     "ee",
     "372"
+  ],
+  [
+    "Eswatini",
+    "sz",
+    "268"
   ],
   [
     "Ethiopia",
@@ -449,7 +479,9 @@ var allCountries = [
   [
     "Grenada",
     "gd",
-    "1473"
+    "1",
+    14,
+    ["473"]
   ],
   [
     "Guadeloupe",
@@ -460,7 +492,9 @@ var allCountries = [
   [
     "Guam",
     "gu",
-    "1671"
+    "1",
+    15,
+    ["671"]
   ],
   [
     "Guatemala",
@@ -758,7 +792,9 @@ var allCountries = [
   [
     "Montserrat",
     "ms",
-    "1664"
+    "1",
+    16,
+    ["664"]
   ],
   [
     "Morocco (‫المغرب‬‎)",
@@ -839,7 +875,9 @@ var allCountries = [
   [
     "Northern Mariana Islands",
     "mp",
-    "1670"
+    "1",
+    17,
+    ["670"]
   ],
   [
     "Norway (Norge)",
@@ -950,12 +988,16 @@ var allCountries = [
   [
     "Saint Kitts and Nevis",
     "kn",
-    "1869"
+    "1",
+    18,
+    ["869"]
   ],
   [
     "Saint Lucia",
     "lc",
-    "1758"
+    "1",
+    19,
+    ["758"]
   ],
   [
     "Saint Martin (Saint-Martin (partie française))",
@@ -971,7 +1013,9 @@ var allCountries = [
   [
     "Saint Vincent and the Grenadines",
     "vc",
-    "1784"
+    "1",
+    20,
+    ["784"]
   ],
   [
     "Samoa",
@@ -1021,7 +1065,9 @@ var allCountries = [
   [
     "Sint Maarten",
     "sx",
-    "1721"
+    "1",
+    21,
+    ["721"]
   ],
   [
     "Slovakia (Slovensko)",
@@ -1148,7 +1194,9 @@ var allCountries = [
   [
     "Trinidad and Tobago",
     "tt",
-    "1868"
+    "1",
+    22,
+    ["868"]
   ],
   [
     "Tunisia (‫تونس‬‎)",
@@ -1168,7 +1216,9 @@ var allCountries = [
   [
     "Turks and Caicos Islands",
     "tc",
-    "1649"
+    "1",
+    23,
+    ["649"]
   ],
   [
     "Tuvalu",
@@ -1178,7 +1228,9 @@ var allCountries = [
   [
     "U.S. Virgin Islands",
     "vi",
-    "1340"
+    "1",
+    24,
+    ["340"]
   ],
   [
     "Uganda",

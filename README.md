@@ -4,18 +4,22 @@
 # International Telephone Input [![Build Status](https://travis-ci.org/jackocnr/intl-tel-input.svg?branch=master)](https://travis-ci.org/jackocnr/intl-tel-input) <img src="https://img.shields.io/github/package-json/v/jackocnr/intl-tel-input.svg" /> <img src="https://img.shields.io/npm/dm/intl-tel-input.svg" />
 A JavaScript plugin for entering and validating international telephone numbers. It adds a flag dropdown to any input, detects the user's country, displays a relevant placeholder and provides formatting/validation methods.
 
-<img src="https://raw.github.com/jackocnr/intl-tel-input/master/screenshots/vanilla.png" width="424px" height="246px">
+<img src="https://raw.github.com/jackocnr/intl-tel-input/master/screenshots/vanilla.png" width="424" height="246" />
 
 If you like it, please consider making a donation, which you can do from [the demo page](http://intl-tel-input.com).
+
+## Sponsored by
+<img src="https://raw.github.com/jackocnr/intl-tel-input/master/screenshots/twilio.png" height="100" />
+Use <a href="https://www.twilio.com/blog/international-telephone-input-twilio?utm_source=github&utm_medium=referral&utm_campaign=intl_tel_input">Twilio's API to build phone verification, SMS 2FA, appointment reminders, marketing notifications and so much more</a>. We can't wait to see what you build.
 
 ## Table of Contents
 
 - [Demo and Examples](#demo-and-examples)
 - [Features](#features)
 - [Browser Compatibility](#browser-compatibility)
-- [Getting Started](#getting-started)
+- [Getting Started](#getting-started-using-a-bundler-eg-webpack)
 - [Recommended Usage](#recommended-usage)
-- [Options](#options)
+- [Options](#initialisation-options)
 - [Public Methods](#public-methods)
 - [Static Methods](#static-methods)
 - [Events](#events)
@@ -47,7 +51,33 @@ You can view a live demo and some examples of how to use the various options her
 
 Note: In v12.0.0 we dropped support for IE9 and IE10, because they are no longer supported by any version of Windows - see https://www.xfive.co/blog/stop-supporting-ie10-ie9-ie8/
 
-## Getting Started
+## Getting Started (Using a bundler e.g. Webpack)
+1. Install with npm: `npm install intl-tel-input --save` or yarn: `yarn add intl-tel-input`
+
+2. Import CSS: `import 'intl-tel-input/build/css/intlTelInput.css';`
+
+3. Override the path to flags.png in your CSS
+  ```css
+  .iti__flag {background-image: url("path/to/flags.png");}
+
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .iti__flag {background-image: url("path/to/flags@2x.png");}
+  }
+  ```
+
+4. Import JS and initialise plugin:
+  ```js
+  import intlTelInput from 'intl-tel-input';
+
+  const input = document.querySelector("#phone");
+  intlTelInput(input, {
+      // any initialisation options go here
+  });
+  ```
+
+5. **Recommended:** initialise the plugin with the `utilsScript` option to enable formatting/validation, and to allow you to extract full international numbers using `getNumber`.
+
+## Getting Started (Not using a bundler)
 1. Download the [latest release](https://github.com/jackocnr/intl-tel-input/releases/latest), or better yet install it with [npm](https://www.npmjs.com/package/intl-tel-input)
 
 2. Include the stylesheet
@@ -57,10 +87,10 @@ Note: In v12.0.0 we dropped support for IE9 and IE10, because they are no longer
 
 3. Override the path to flags.png in your CSS
   ```css
-  .iti-flag {background-image: url("path/to/flags.png");}
+  .iti__flag {background-image: url("path/to/flags.png");}
 
   @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .iti-flag {background-image: url("path/to/flags@2x.png");}
+    .iti__flag {background-image: url("path/to/flags@2x.png");}
   }
   ```
 
@@ -71,7 +101,9 @@ Note: In v12.0.0 we dropped support for IE9 and IE10, because they are no longer
   <script src="path/to/intlTelInput.js"></script>
   <script>
     var input = document.querySelector("#phone");
-    window.intlTelInput(input);
+    window.intlTelInput(input, {
+      // any initialisation options go here
+    });
   </script>
   ```
 
@@ -79,13 +111,13 @@ Note: In v12.0.0 we dropped support for IE9 and IE10, because they are no longer
 
 
 ## Recommended Usage
-We highly recommend you load the included utils.js using the `utilsScript` option. Then the plugin is built to always deal with numbers in the full international format (e.g. "+17024181234") and convert them accordingly - even when `nationalMode` or `separateDialCode` is enabled. I recommend you get, store, and set numbers exclusively in this format for simplicity - then you don't have to deal with handling the country code separately, as full international numbers include the country code information.
+We highly recommend you (lazy) load the included utils.js using the `utilsScript` option. Then the plugin is built to always deal with numbers in the full international format (e.g. "+17024181234") and convert them accordingly - even when `nationalMode` or `separateDialCode` is enabled. We recommend you get, store, and set numbers exclusively in this format for simplicity - then you don't have to deal with handling the country code separately, as full international numbers include the country code information.
 
 You can always get the full international number (including country code) using `getNumber`, then you only have to store that one string in your database (you don't have to store the country separately), and then the next time you initialise the plugin with that number it will automatically set the country and format it according to the options you specify (e.g. if you enable `nationalMode` it will automatically remove the international dial code for you).
 
 
-## Options
-Note: any options that take country codes should be [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) codes  
+## Initialisation Options
+When you initialise the plugin, the first argument is the input element, and the second is an object containing any initialisation options you want, which are detailed below. Note: any options that take country codes should be [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) codes  
 
 **allowDropdown**  
 Type: `Boolean` Default: `true`  
@@ -140,7 +172,7 @@ intlTelInput(input, {
   initialCountry: "auto",
   geoIpLookup: function(success, failure) {
     $.get("https://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-      var countryCode = (resp && resp.country) ? resp.country : "";
+      var countryCode = (resp && resp.country) ? resp.country : "us";
       success(countryCode);
     });
   },
@@ -151,7 +183,7 @@ _Tip: store the result in a cookie to avoid repeat lookups!_
 
 **hiddenInput**  
 Type: `String` Default: `""`  
-Add a hidden input with the given name. Alternatively, if your input name contains square brackets (e.g. `name="phone_number[main]"`) then it will give the hidden input the same name, replacing the contents of the brackets with the given name (e.g. if you init the plugin with `hiddenInput: "full"`, then in this case the hidden input would have `name="phone_number[full]"`). On submit, it will automatically populate the hidden input with the full international number (using `getNumber`). This is a quick way for people using non-ajax forms to get the full international number, even when `nationalMode` is enabled. _Note: requires the input to be inside a form element, as this feature works by listening for the submit event on the closest form element. Also note that since this uses `getNumber` internally, it expects a valid number, and so should only be used after validation._
+Add a hidden input with the given name. Alternatively, if your input name contains square brackets (e.g. `name="phone_number[main]"`) then it will give the hidden input the same name, replacing the contents of the brackets with the given name (e.g. if you init the plugin with `hiddenInput: "full"`, then in this case the hidden input would have `name="phone_number[full]"`). On submit, it will automatically populate the hidden input with the full international number (using `getNumber`). This is a quick way for people using non-Ajax forms to get the full international number, even when `nationalMode` is enabled. Avoid this option when using Ajax forms and instead just call `getNumber` to get the full international number to send in the request. _Note: requires the input to be inside a form element, as this feature works by listening for the submit event on the closest form element. Also note that since this uses `getNumber` internally, firstly it requires the `utilsScript` option, and secondly it expects a valid number and so should only be used after validation._
 
 **initialCountry**  
 Type: `String` Default: `""`  
@@ -194,7 +226,7 @@ Display the country dial code next to the selected flag so it's not part of the 
 
 **utilsScript**  
 Type: `String` Default: `""` Example: `"build/js/utils.js"`  
-Enable formatting/validation etc. by specifying the URL of the included utils.js script (or alternatively just point it to the file on [cdnjs.com](https://cdnjs.com/libraries/intl-tel-input)). The script is fetched when the page has finished loading (on the window load event) to prevent blocking (the script is ~215KB). When instantiating the plugin, if the [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) object is defined, one of those is returned under the `promise` instance property, so you can do something like `iti.promise.then(callback)` to know when initialisation requests like this have finished. See [Utilities Script](#utilities-script) for more information. _Note that if you're lazy loading the plugin script itself (intlTelInput.js) this will not work and you will need to use the `loadUtils` method instead._
+Enable formatting/validation etc. by specifying the URL of the included utils.js script (or alternatively just point it to the file on [cdnjs.com](https://cdnjs.com/libraries/intl-tel-input)). The script is fetched only when the page has finished loading (on the window load event) to prevent blocking (the script is ~215KB). When instantiating the plugin, if the [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) object is defined, one of those is returned under the `promise` instance property, so you can do something like `iti.promise.then(callback)` to know when initialisation requests like this have finished. See [Utilities Script](#utilities-script) for more information.
 
 
 ## Public Methods
@@ -312,8 +344,7 @@ iti.isValidNumber(); // etc
 ```
 
 **loadUtils**  
-_Note: this is only needed if you're lazy loading the plugin script itself (intlTelInput.js). If not then just use the `utilsScript` option._  
-Load the utils.js script (included in the lib directory) to enable formatting/validation etc. See [Utilities Script](#utilities-script) for more information. This method should only be called once per page. If the [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) object is defined, one of those is returned so you can use `.then(callback)` to know when it's finished.
+An alternative to the `utilsScript` option, this method lets you manually load the utils.js script on demand, to enable formatting/validation etc. See [Utilities Script](#utilities-script) for more information. This method should only be called once per page. If the [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) object is defined, one of those is returned so you can use `loadUtils().then(callback)` to know when it's finished.
 ```js
 window.intlTelInputGlobals.loadUtils("build/js/utils.js");
 ```
@@ -358,8 +389,9 @@ To recompile the utils script yourself (e.g. to update the version of libphonenu
 
 **Full width input**  
 If you want your input to be full-width, you need to set the container to be the same i.e.
+
 ```css
-.intl-tel-input { width: 100%; }
+.iti { width: 100%; }
 ```
 
 **dropdownContainer: dropdown not closing on scroll**  
@@ -374,10 +406,10 @@ scrollingElement.addEventListener("scroll", function() {
 ```
 
 **Input margin**  
-For the sake of alignment, the default CSS forces the input's vertical margin to `0px`. If you want vertical margin, you should add it to the container (with class `intl-tel-input`).
+For the sake of alignment, the default CSS forces the input's vertical margin to `0px`. If you want vertical margin, you should add it to the container (with class `iti`).
 
 **Displaying error messages**  
-If your error handling code inserts an error message before the `<input>` it will break the layout. Instead you must insert it before the container (with class `intl-tel-input`).
+If your error handling code inserts an error message before the `<input>` it will break the layout. Instead you must insert it before the container (with class `iti`).
 
 **Dropdown position**  
 The dropdown should automatically appear above/below the input depending on the available space. For this to work properly, you must only initialise the plugin after the `<input>` has been added to the DOM.
@@ -386,8 +418,12 @@ The dropdown should automatically appear above/below the input depending on the 
 In order to get the automatic country-specific placeholders, simply omit the placeholder attribute on the `<input>`.
 
 **Bootstrap input groups**  
-A couple of CSS fixes are required to get the plugin to play nice with Bootstrap [input groups](http://getbootstrap.com/components/#input-groups). You can see a Codepen [here](http://codepen.io/jackocnr/pen/EyPXed).  
-_Note: there is currently [a bug](https://bugs.webkit.org/show_bug.cgi?id=141822) in Mobile Safari which causes a crash when you click the dropdown arrow (a CSS triangle) inside an input group. The simplest workaround is to remove the CSS triangle with this line: `.intl-tel-input .iti-flag .arrow {border: none;}`_
+A couple of CSS fixes are required to get the plugin to play nice with Bootstrap [input groups](https://getbootstrap.com/docs/3.3/components/#input-groups). You can see a Codepen [here](http://codepen.io/jackocnr/pen/EyPXed).  
+_Note: there is currently [a bug](https://bugs.webkit.org/show_bug.cgi?id=141822) in Mobile Safari which causes a crash when you click the dropdown arrow (a CSS triangle) inside an input group. The simplest workaround is to remove the CSS triangle with this line:_
+
+```css
+.iti__arrow { border: none; }
+```
 
 
 ## Contributing
@@ -405,9 +441,7 @@ See the [contributing guide](https://github.com/jackocnr/intl-tel-input/blob/mas
 * List of [sites using intl-tel-input](https://github.com/jackocnr/intl-tel-input/wiki/Sites-using-intl-tel-input)
 * List of [integrations with intl-tel-input](https://github.com/jackocnr/intl-tel-input/wiki/Integrations)
 * Android native port: [IntlPhoneInput](https://github.com/Rimoto/IntlPhoneInput)
-* Typescript type definitions are available in the [DefinitelyTyped repo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/intl-tel-input/intl-tel-input.d.ts) (more info [here](https://github.com/jackocnr/intl-tel-input/issues/433#issuecomment-228517623))
+* Typescript type definitions are available in the [DefinitelyTyped repo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/intl-tel-input/index.d.ts) (more info [here](https://github.com/jackocnr/intl-tel-input/issues/433#issuecomment-228517623))
 
-<a href="https://www.browserstack.com">
-<img src="https://p14.zdusercontent.com/attachment/1015988/y0Sl6KKaxGxel8uLLhHApi2qm?token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..tN0cDNWdP3tkoP03Sgjf9w.knp9cYYPDLOhhv5TEVpfKc86Ymt8a4FI72PrLSflve3XuXraQhMASa6acCMZpxdJytHHR68IKeY8uHvll1mv6YgcTojspO80PL1TywO2nOW8rENDqn_cfiR0ezRgzvQe_8iLEMya-oJYIAzW7i1-5wkgz27Qw0o2BaBJtBy-sVtriApV2gwAz7cB5yNQ2ZzKGcZKhBfdwsUVpGfOr17jGQtJ4L7QVP2rnuvYXcKZ5qCiIO4hGo66fSPoCH2vLhAAY8Cj1OdBPOt9RoN2fJFWgwDzNKaz3hL7SKep7Q-32OI.p3OapnE-H2lWYIH5lMsrmg" width="200px"></a>
-
-Tested on [BrowserStack](https://www.browserstack.com)
+<img width="200" src="https://www.browserstack.com/images/layout/browserstack-logo-600x315.png" /><br />
+Testing powered by [BrowserStack Open-Source Program](https://www.browserstack.com/open-source)
